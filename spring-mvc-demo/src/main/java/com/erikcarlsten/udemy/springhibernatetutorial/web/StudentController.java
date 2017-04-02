@@ -1,6 +1,7 @@
 package com.erikcarlsten.udemy.springhibernatetutorial.web;
 
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.Student;
+import com.erikcarlsten.udemy.springhibernatetutorial.util.CountryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class StudentController {
         Student student = new Student();
 
         model.addAttribute(student);
+        model.addAttribute("countries", CountryUtil.getCountries());
+        logger.info("Model attributes added to model: {}", model);
 
         return "views/student-form";
     }
