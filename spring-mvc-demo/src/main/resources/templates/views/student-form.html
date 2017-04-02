@@ -20,6 +20,13 @@
 
     <br/><br/>
 
+    <span th:each="programmingLanguage : ${programmingLanguages}">
+        <input type="radio" name="myRadioButton" th:field="*{programmingLanguage}" th:value="${programmingLanguage}" />
+        <label th:text="${programmingLanguage}">Python</label>
+    </span>
+
+    <br/><br/>
+
     <input type="submit" />
 
 </form>
