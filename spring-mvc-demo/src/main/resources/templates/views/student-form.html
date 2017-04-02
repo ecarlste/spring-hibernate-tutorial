@@ -21,8 +21,15 @@
     <br/><br/>
 
     <span th:each="programmingLanguage : ${programmingLanguages}">
-        <input type="radio" name="myRadioButton" th:field="*{programmingLanguage}" th:value="${programmingLanguage}" />
+        <input type="radio" th:field="*{programmingLanguage}" th:value="${programmingLanguage}" />
         <label th:text="${programmingLanguage}">Python</label>
+    </span>
+
+    <br/><br/>
+
+    <span th:each="operatingSystem : ${allOperatingSystems}">
+        <input type="checkbox" th:field="*{operatingSystems}" th:value="${operatingSystem}" />
+        <label th:text="${operatingSystem}">Windows</label>
     </span>
 
     <br/><br/>

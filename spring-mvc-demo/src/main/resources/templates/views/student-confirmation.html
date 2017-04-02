@@ -15,5 +15,11 @@ Country: <span th:text="${student.country}">United States of America</span>
 
 Favorite Programming Language: <span th:text="${student.programmingLanguage}">Python</span>
 
+<br/><br/>
+
+Known Operating Systems:
+<span th:each="operatingSystem, iterStat : ${student.operatingSystems}"
+      th:text="!${iterStat.last} ? ${operatingSystem} + ',' : ${operatingSystem}">Windows</span>
+
 </body>
 </html>

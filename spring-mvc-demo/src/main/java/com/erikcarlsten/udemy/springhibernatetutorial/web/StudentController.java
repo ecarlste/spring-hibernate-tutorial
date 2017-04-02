@@ -2,6 +2,7 @@ package com.erikcarlsten.udemy.springhibernatetutorial.web;
 
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.Student;
 import com.erikcarlsten.udemy.springhibernatetutorial.util.CountryUtil;
+import com.erikcarlsten.udemy.springhibernatetutorial.util.OperatingSystemUtil;
 import com.erikcarlsten.udemy.springhibernatetutorial.util.ProgrammingLanguagesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class StudentController {
         model.addAttribute(student);
         model.addAttribute("countries", CountryUtil.getCountries());
         model.addAttribute("programmingLanguages", ProgrammingLanguagesUtil.getNames());
+        model.addAttribute("allOperatingSystems", OperatingSystemUtil.getNames());
         logger.info("Model attributes added to model: {}", model);
 
         return "views/student-form";
