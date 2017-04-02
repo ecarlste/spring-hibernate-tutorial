@@ -1,16 +1,11 @@
 package com.erikcarlsten.udemy.springhibernatetutorial.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Student {
 
     private String firstName;
+    private String lastName;
 
 }
