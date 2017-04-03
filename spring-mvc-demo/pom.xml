@@ -5,7 +5,7 @@
 
 	<groupId>com.erikcarlsten.udemy.springhibernatetutorial</groupId>
 	<artifactId>spring-mvc-demo</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-mvc-demo</name>
@@ -36,6 +36,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
 
 		<dependency>
