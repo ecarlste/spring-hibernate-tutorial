@@ -4,10 +4,15 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class CourseCodeConstraintValidator implements ConstraintValidator<CourseCode, String> {
-   public void initialize(CourseCode constraint) {
-   }
 
-   public boolean isValid(String obj, ConstraintValidatorContext context) {
-      return false;
-   }
+    private String coursePrefix;
+
+    public void initialize(CourseCode courseCode) {
+        coursePrefix = courseCode.value();
+    }
+
+    public boolean isValid(String code, ConstraintValidatorContext context) {
+        return code.startsWith(coursePrefix);
+    }
+
 }
