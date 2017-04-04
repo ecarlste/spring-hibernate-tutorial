@@ -1,5 +1,6 @@
 package com.erikcarlsten.udemy.springhibernatetutorial.domain;
 
+import com.erikcarlsten.udemy.springhibernatetutorial.web.validation.CourseCode;
 import lombok.Data;
 
 import javax.validation.constraints.*;
@@ -20,5 +21,8 @@ public class Customer {
 
     @Pattern(regexp = "^[a-zA-Z0-9]{5}", message = "only 5 letters/digits")
     private String postalCode;
+
+    @CourseCode
+    private String courseCode;
 
 }
