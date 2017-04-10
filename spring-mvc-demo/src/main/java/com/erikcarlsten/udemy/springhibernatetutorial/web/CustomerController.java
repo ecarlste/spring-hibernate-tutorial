@@ -46,4 +46,9 @@ public class CustomerController {
         return "views/customer-confirmation";
     }
 
+    @GetMapping("/list")
+    public String listCustomers(Model model) {
+        return "views/list-customers";
+    }
+
 }
