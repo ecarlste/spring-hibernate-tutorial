@@ -5,7 +5,32 @@
 </head>
 <body>
 
-List Customers - coming soon ...
+<div id="wrapper">
+    <div id="header">
+        <h2>CRM - Customer Relationship Manager</h2>
+    </div>
+</div>
+
+<div id="container">
+
+    <div id="content">
+
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.firstName}">Erik</td>
+                <td th:text="${customer.lastName}">Carlsten</td>
+                <td th:text="${customer.email}">ecarlste@gmail.com</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
 
 </body>
 </html>
