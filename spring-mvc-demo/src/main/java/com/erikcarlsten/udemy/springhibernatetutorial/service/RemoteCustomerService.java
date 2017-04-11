@@ -4,6 +4,7 @@ import com.erikcarlsten.udemy.springhibernatetutorial.domain.Customer;
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,12 @@ public class RemoteCustomerService implements CustomerService {
     public List<Customer> getAllCustomers() {
         return StreamSupport.stream(customerRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void saveCustomer(Customer customer) {
+        customerRepository.save(customer);
     }
 
 }
