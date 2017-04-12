@@ -60,7 +60,11 @@ public class CustomerController {
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+        logger.info("Saving customer: {}", customer);
+
         customerService.saveCustomer(customer);
+
+        logger.info("Customer saved successfully.");
 
         return "redirect:/customer/list";
     }
