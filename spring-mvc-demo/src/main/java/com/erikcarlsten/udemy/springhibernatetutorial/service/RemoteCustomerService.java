@@ -26,6 +26,7 @@ public class RemoteCustomerService implements CustomerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Customer> getAllCustomers() {
         List<Customer> sorted = customerRepository.findAllByOrderByLastName();
 
@@ -38,6 +39,17 @@ public class RemoteCustomerService implements CustomerService {
     @Transactional
     public void saveCustomer(Customer customer) {
         customerRepository.save(customer);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Customer getCustomer(Long id) {
+        return customerRepository.findOne(id);
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        customerRepository.delete(id);
     }
 
 }

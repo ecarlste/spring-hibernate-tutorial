@@ -4,7 +4,7 @@
     <title>Save Customer</title>
 
     <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen" />
-    <link href="../../static/css/style.css" th:href="@{/css/add-customer-style.css}" rel="stylesheet" media="screen" />
+    <link href="../../static/css/add-customer-style.css" th:href="@{/css/add-customer-style.css}" rel="stylesheet" media="screen" />
 </head>
 <body>
 
@@ -20,6 +20,8 @@
     <h3>Save Customer</h3>
 
     <form action="#" th:action="@{/customer/saveCustomer}" th:object="${customer}" method="post">
+
+        <input th:field="*{id}" type="hidden" />
 
         <table>
             <tbody>

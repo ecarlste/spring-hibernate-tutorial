@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -59,7 +60,27 @@ public class CustomerController {
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+        logger.info("Saving customer: {}", customer);
+
         customerService.saveCustomer(customer);
+
+        logger.info("Customer saved successfully.");
+
+        return "redirect:/customer/list";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("customerId") Long id, Model model) {
+        Customer customer = customerService.getCustomer(id);
+
+        model.addAttribute("customer", customer);
+
+        return "views/customer-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("customerId") Long id) {
+        customerService.deleteCustomer(id);
 
         return "redirect:/customer/list";
     }
