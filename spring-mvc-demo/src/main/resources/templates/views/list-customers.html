@@ -26,11 +26,15 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Action</th>
             </tr>
             <tr th:each="customer : ${customers}">
                 <td th:text="${customer.firstName}">Erik</td>
                 <td th:text="${customer.lastName}">Carlsten</td>
                 <td th:text="${customer.email}">ecarlste@gmail.com</td>
+                <td >
+                    <a th:href="@{/customer/showFormForUpdate(customerId=${customer.id})}" href="/customer/showFormForUpdate?customerId=1">Update</a>
+                </td>
             </tr>
         </table>
 
