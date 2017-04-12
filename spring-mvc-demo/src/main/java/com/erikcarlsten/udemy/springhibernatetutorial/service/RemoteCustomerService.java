@@ -47,4 +47,9 @@ public class RemoteCustomerService implements CustomerService {
         return customerRepository.findOne(id);
     }
 
+    @Override
+    public void deleteCustomer(Long id) {
+        customerRepository.delete(id);
+    }
+
 }
