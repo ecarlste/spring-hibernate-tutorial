@@ -23,7 +23,7 @@ public class CustomerServiceTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        this.customerService = new CustomerService(this.customerRepository);
+        this.customerService = new RemoteCustomerService(this.customerRepository);
     }
 
     @Test

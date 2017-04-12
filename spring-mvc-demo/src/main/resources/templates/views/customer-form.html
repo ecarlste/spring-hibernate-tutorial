@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Customer Registration Form</title>
+    <title>Save Customer</title>
 
-    <style>
-        .error {
-            color: red
-        }
-    </style>
-
+    <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen" />
+    <link href="../../static/css/add-customer-style.css" th:href="@{/css/add-customer-style.css}" rel="stylesheet" media="screen" />
 </head>
 <body>
 
-<i>Fill out the form. Asterisk (*) means required.</i>
+<div id="wrapper">
 
-<br/><br/>
+    <div id="header">
+        <h2>CRM - Customer Relationship Manager</h2>
+    </div>
 
-<form action="#" th:action="@{/customer/processForm}" th:object="${customer}" method="post">
+</div>
 
-    First Name: <input type="text" th:field="*{firstName}" placeholder="Kevin" />
+<div id="container">
+    <h3>Save Customer</h3>
 
-    <br/><br/>
+    <form action="#" th:action="@{/customer/saveCustomer}" th:object="${customer}" method="post">
 
-    Last Name: <input type="text" th:field="*{lastName}" placeholder="Smith" />
-    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error">First Name Error</span>
+        <input th:field="*{id}" type="hidden" />
 
-    <br/><br/>
+        <table>
+            <tbody>
+            <tr>
+                <td><label>First name:</label></td>
+                <td><input type="text" th:field="*{firstName}" placeholder="Kevin" /></td>
+            </tr>
+            <tr>
+                <td><label>Last name:</label></td>
+                <td><input type="text" th:field="*{lastName}" placeholder="Smith" /></td>
+            </tr>
+            <tr>
+                <td><label>Email:</label></td>
+                <td><input type="text" th:field="*{email}" placeholder="kevin@foo.bar" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Save" class="save" /></td>
+            </tr>
+            </tbody>
+        </table>
 
-    Free Passes: <input type="text" th:field="*{freePasses}" placeholder="10" />
-    <span th:if="${#fields.hasErrors('freePasses')}" th:errors="*{freePasses}" class="error">Free Passes Error</span>
+    </form>
 
-    <br/><br/>
-
-    Postal Code: <input type="text" th:field="*{postalCode}" placeholder="59715" />
-    <span th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" class="error">Postal Code Error</span>
-
-    <br/><br/>
-
-    Course Code: <input type="text" th:field="*{courseCode}" placeholder="LUV2Code" />
-    <span th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}" class="error">Course Code Error</span>
-
-    <br/><br/>
-
-    <button type="submit">Submit</button>
-
-</form>
+    <p><a href="#" th:href="@{/customer/list}">Back to List</a></p>
+</div>
 
 </body>
 </html>
