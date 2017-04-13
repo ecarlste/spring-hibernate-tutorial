@@ -48,6 +48,7 @@ public class RemoteCustomerService implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void deleteCustomer(Long id) {
         customerRepository.delete(id);
     }
