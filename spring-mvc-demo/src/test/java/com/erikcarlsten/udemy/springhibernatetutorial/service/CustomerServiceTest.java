@@ -29,10 +29,10 @@ public class CustomerServiceTest {
     @Test
     public void getAllCustomersShouldReturnAllCustomersAsList() {
         List<Customer> expectedCustomers = new ArrayList<>();
-        expectedCustomers.add(new Customer("Erik", "Carlsten"));
-        expectedCustomers.add(new Customer("Lynda", "Stuber"));
+        expectedCustomers.add(new Customer("Erik", "Carlsten", "eshizzle@foo.bar"));
+        expectedCustomers.add(new Customer("Lynda", "Stuber", "lmac@bar.wam"));
 
-        given(this.customerRepository.findAll()).willReturn(expectedCustomers);
+        given(this.customerRepository.findAllByOrderByLastName()).willReturn(expectedCustomers);
 
         List<Customer> actualCustomers = this.customerService.getAllCustomers();
 

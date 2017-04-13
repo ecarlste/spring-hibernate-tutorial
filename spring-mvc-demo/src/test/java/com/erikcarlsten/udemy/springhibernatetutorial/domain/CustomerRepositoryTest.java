@@ -21,7 +21,7 @@ public class CustomerRepositoryTest {
 
     @Test
     public void findByLastNameShouldReturnStudent() throws Exception {
-        this.entityManager.persist(new Customer("Erik", "Carlsten"));
+        this.entityManager.persist(new Customer("Erik", "Carlsten", "eshizzle@foo.bar"));
         Customer customer = this.customerRepository.findByLastName("Carlsten");
         assertThat(customer.getFirstName()).isEqualTo("Erik");
         assertThat(customer.getLastName()).isEqualTo("Carlsten");
@@ -29,7 +29,7 @@ public class CustomerRepositoryTest {
 
     @Test
     public void findByLastNameShouldReturnNullWhenNoStudent() throws Exception {
-        this.entityManager.persist(new Customer("Erik", "Carlsten"));
+        this.entityManager.persist(new Customer("Erik", "Carlsten", "eshizzle@foo.bar"));
         Customer customer = this.customerRepository.findByLastName("Stuber");
         assertThat(customer).isNull();
     }
