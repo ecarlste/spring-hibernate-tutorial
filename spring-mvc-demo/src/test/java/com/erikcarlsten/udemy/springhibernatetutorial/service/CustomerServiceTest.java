@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,6 +40,17 @@ public class CustomerServiceTest {
         assertThat(expectedCustomers)
                 .as("\nExpected Customers: %s,\nActual Customers: %s", expectedCustomers, actualCustomers)
                 .isEqualTo(actualCustomers);
+    }
+
+    @Test
+    public void getAllCustomersShouldReturnEmptyListWhenNoCustomers() throws Exception {
+        List<Customer> emptyList = Collections.emptyList();
+
+        given(customerRepository.findAllByOrderByLastName()).willReturn(emptyList);
+
+        List<Customer> actualCustomers = customerService.getAllCustomers();
+
+        assertThat(actualCustomers).isEmpty();
     }
 
 }
