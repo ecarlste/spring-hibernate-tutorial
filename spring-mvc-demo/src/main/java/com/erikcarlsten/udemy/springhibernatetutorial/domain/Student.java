@@ -3,7 +3,7 @@ package com.erikcarlsten.udemy.springhibernatetutorial.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import org.springframework.util.Assert;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,7 +15,6 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Student {
 
     @Id
@@ -33,5 +32,13 @@ public class Student {
 
     @ElementCollection
     private List<String> operatingSystems;
+
+    public Student(String firstName, String lastName) {
+        Assert.hasLength(firstName, "First name must not be empty");
+        Assert.hasLength(lastName, "Last name must not be empty");
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
 }
