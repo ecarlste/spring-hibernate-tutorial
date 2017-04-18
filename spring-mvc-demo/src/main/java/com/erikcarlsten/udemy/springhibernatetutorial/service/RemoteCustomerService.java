@@ -2,6 +2,7 @@ package com.erikcarlsten.udemy.springhibernatetutorial.service;
 
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.Customer;
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.CustomerRepository;
+import com.erikcarlsten.udemy.springhibernatetutorial.exception.CustomerNotSavedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,6 @@ public class RemoteCustomerService implements CustomerService {
     private static final Logger logger = LoggerFactory.getLogger(RemoteCustomerService.class);
 
     private CustomerRepository customerRepository;
-
-    private RemoteCustomerService() {
-    }
 
     @Autowired
     public RemoteCustomerService(CustomerRepository customerRepository) {
@@ -37,8 +35,15 @@ public class RemoteCustomerService implements CustomerService {
 
     @Override
     @Transactional
-    public void saveCustomer(Customer customer) {
-        customerRepository.save(customer);
+    public Customer saveCustomer(Customer customer) {
+        Customer savedCustomer = customerRepository.save(customer);
+
+        if (savedCustomer == null) {
+            logger.error("Repository returned null Customer");
+            throw new CustomerNotSavedException("There was an error saving the Customer");
+        }
+
+        return savedCustomer;
     }
 
     @Override
