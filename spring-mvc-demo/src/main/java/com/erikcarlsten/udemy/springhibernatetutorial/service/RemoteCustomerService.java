@@ -2,6 +2,7 @@ package com.erikcarlsten.udemy.springhibernatetutorial.service;
 
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.Customer;
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.CustomerRepository;
+import com.erikcarlsten.udemy.springhibernatetutorial.exception.CustomerNotFoundException;
 import com.erikcarlsten.udemy.springhibernatetutorial.exception.CustomerNotSavedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,14 @@ public class RemoteCustomerService implements CustomerService {
     @Override
     @Transactional(readOnly = true)
     public Customer getCustomer(Long id) {
-        return customerRepository.findOne(id);
+        Customer customer = customerRepository.findOne(id);
+
+        if (customer == null) {
+            logger.info("Customer with id: {} not found", id);
+            throw new CustomerNotFoundException("Customer with id: " + id + " not found");
+        }
+
+        return customer;
     }
 
     @Override

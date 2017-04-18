@@ -2,6 +2,7 @@ package com.erikcarlsten.udemy.springhibernatetutorial.service;
 
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.Customer;
 import com.erikcarlsten.udemy.springhibernatetutorial.domain.CustomerRepository;
+import com.erikcarlsten.udemy.springhibernatetutorial.exception.CustomerNotFoundException;
 import com.erikcarlsten.udemy.springhibernatetutorial.exception.CustomerNotSavedException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -75,14 +76,42 @@ public class RemoteCustomerServiceTest {
     @Test
     public void saveCustomerShouldReturnCustomerWithIdWhenSaveSuccessful() throws Exception {
         Customer customerToSave = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
-        Customer customerWithId = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
-        customerWithId.setId(7L);
+        Customer expectedCustomer = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
+        expectedCustomer.setId(7L);
 
-        given(customerRepository.save(customerToSave)).willReturn(customerWithId);
+        Customer customerSaved = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
+        customerSaved.setId(7L);
+        given(customerRepository.save(customerToSave)).willReturn(customerSaved);
 
-        Customer savedCustomer = customerService.saveCustomer(customerToSave);
+        Customer actualCustomer = customerService.saveCustomer(customerToSave);
 
-        assertThat(savedCustomer).isEqualToComparingFieldByField(customerWithId);
+        assertThat(actualCustomer).isEqualToComparingFieldByField(expectedCustomer);
+    }
+
+    @Test
+    public void getCustomerShouldThrowExceptionWhenRepositoryFindOneReturnsNull() throws Exception {
+        Long customerId = 7L;
+        expectedException.expect(CustomerNotFoundException.class);
+        expectedException.expectMessage("Customer with id: " + customerId + " not found");
+
+        given(customerRepository.findOne(customerId)).willReturn(null);
+
+        customerService.getCustomer(customerId);
+    }
+
+    @Test
+    public void getCustomerShouldReturnCustomerWithCorrectIdWhenCustomerFound() throws Exception {
+        Long customerId = 7L;
+        Customer expectedCustomer = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
+        expectedCustomer.setId(customerId);
+
+        Customer customerFound = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
+        customerFound.setId(customerId);
+        given(customerRepository.findOne(customerId)).willReturn(customerFound);
+
+        Customer actualCustomer = customerService.getCustomer(customerId);
+
+        assertThat(actualCustomer).isEqualToComparingFieldByField(expectedCustomer);
     }
 
 }
