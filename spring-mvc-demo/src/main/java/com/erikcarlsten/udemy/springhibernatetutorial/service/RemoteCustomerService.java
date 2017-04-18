@@ -7,6 +7,7 @@ import com.erikcarlsten.udemy.springhibernatetutorial.exception.CustomerNotSaved
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +55,7 @@ public class RemoteCustomerService implements CustomerService {
 
         if (customer == null) {
             logger.info("Customer with id: {} not found", id);
-            throw new CustomerNotFoundException("Customer with id: " + id + " not found");
+            throw new CustomerNotFoundException(String.format("Customer with id: %s not found", id));
         }
 
         return customer;
@@ -62,7 +63,7 @@ public class RemoteCustomerService implements CustomerService {
 
     @Override
     @Transactional
-    public void deleteCustomer(Long id) {
+    public void deleteCustomer(Long id) throws EmptyResultDataAccessException, IllegalArgumentException {
         customerRepository.delete(id);
     }
 

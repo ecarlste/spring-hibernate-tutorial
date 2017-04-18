@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.doThrow;
 
 public class RemoteCustomerServiceTest {
 
@@ -112,6 +115,22 @@ public class RemoteCustomerServiceTest {
         Customer actualCustomer = customerService.getCustomer(customerId);
 
         assertThat(actualCustomer).isEqualToComparingFieldByField(expectedCustomer);
+    }
+
+    @Test
+    public void deleteCustomerShouldRethrowIllegalArgumentExceptionWhenIdNull() {
+        expectedException.expect(IllegalArgumentException.class);
+        doThrow(new IllegalArgumentException()).when(customerRepository).delete(anyLong());
+
+        customerService.deleteCustomer(1L);
+    }
+
+    @Test
+    public void deleteCustomerShouldRethrowEmptyResultDataAccessExceptionWhenCustomerNotFound() {
+        expectedException.expect(EmptyResultDataAccessException.class);
+        doThrow(new EmptyResultDataAccessException(1)).when(customerRepository).delete(anyLong());
+
+        customerService.deleteCustomer(1L);
     }
 
 }
