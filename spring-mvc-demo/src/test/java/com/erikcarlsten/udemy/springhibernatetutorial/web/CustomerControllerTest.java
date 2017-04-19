@@ -80,7 +80,7 @@ public class CustomerControllerTest {
                 .content(content);
 
         mvc.perform(requestBuilder)
-                .andExpect(status().is3xxRedirection())
+                .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/customer/list"))
                 .andExpect(redirectedUrl("/customer/list"));
     }
@@ -102,16 +102,16 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void showFormForUpdateShouldReturn400WhenCustomerIdNull() throws Exception {
+    public void showFormForUpdateShouldReturnBadRequestWhenCustomerIdNull() throws Exception {
         mvc.perform(get("/customer/showFormForUpdate"))
-                .andExpect(status().is(400))
+                .andExpect(status().isBadRequest())
                 .andExpect(status().reason("Required Long parameter 'customerId' is not present"));
     }
 
     @Test
-    public void deleteCustomerShouldReturn400WhenCustomerIdNull() throws Exception {
+    public void deleteCustomerShouldReturnBadRequestWhenCustomerIdNull() throws Exception {
         mvc.perform(get("/customer/delete"))
-                .andExpect(status().is(400))
+                .andExpect(status().isBadRequest())
                 .andExpect(status().reason("Required Long parameter 'customerId' is not present"));
     }
 
