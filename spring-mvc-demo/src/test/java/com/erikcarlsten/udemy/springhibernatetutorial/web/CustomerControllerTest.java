@@ -82,4 +82,27 @@ public class CustomerControllerTest {
                 .andExpect(redirectedUrl("/customer/list"));
     }
 
+    @Test
+    public void showFormForUpdateShouldAddCustomerWithIdAndReturnCustomerFormTemplate() throws Exception {
+        Long customerId = 7L;
+        Customer customer = new Customer("Erik", "Carlsten", "eshizzle@foo.bar");
+        customer.setId(customerId);
+
+        given(customerService.getCustomer(customerId)).willReturn(customer);
+
+        mvc.perform(get("/customer/showFormForUpdate")
+                .param("customerId", objectMapper.writeValueAsString(customerId)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("views/customer-form"))
+                .andExpect(model().attribute("customer", customer));
+    }
+
+    @Test
+    public void showFormForUpdateShouldReturn400WhenCustomerIdNull() throws Exception {
+        mvc.perform(get("/customer/showFormForUpdate"))
+                .andExpect(status().is(400))
+                .andExpect(status().reason("Required Long parameter 'customerId' is not present"));
+    }
+
 }
