@@ -20,6 +20,7 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -103,6 +104,25 @@ public class CustomerControllerTest {
         mvc.perform(get("/customer/showFormForUpdate"))
                 .andExpect(status().is(400))
                 .andExpect(status().reason("Required Long parameter 'customerId' is not present"));
+    }
+
+    @Test
+    public void deleteCustomerShouldReturn400WhenCustomerIdNull() throws Exception {
+        mvc.perform(get("/customer/delete"))
+                .andExpect(status().is(400))
+                .andExpect(status().reason("Required Long parameter 'customerId' is not present"));
+    }
+
+    @Test
+    public void deleteCustomerShouldRedirectToCustomerListMapping() throws Exception {
+        Long customerId = 7L;
+
+        mvc.perform(get("/customer/delete")
+                .param("customerId", objectMapper.writeValueAsString(customerId)))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/customer/list"))
+                .andExpect(redirectedUrl("/customer/list"))
+                .andDo(print());
     }
 
 }
