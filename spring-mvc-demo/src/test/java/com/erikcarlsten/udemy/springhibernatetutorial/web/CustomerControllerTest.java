@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -114,7 +116,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void deleteCustomerShouldRedirectToCustomerListMapping() throws Exception {
+    public void deleteCustomerShouldInvokeServiceMethodOnceAndRedirectToCustomerListMapping() throws Exception {
         Long customerId = 7L;
 
         mvc.perform(get("/customer/delete")
@@ -123,6 +125,8 @@ public class CustomerControllerTest {
                 .andExpect(view().name("redirect:/customer/list"))
                 .andExpect(redirectedUrl("/customer/list"))
                 .andDo(print());
+
+        verify(customerService, times(1)).deleteCustomer(customerId);
     }
 
 }
