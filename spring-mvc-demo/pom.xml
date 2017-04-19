@@ -5,7 +5,7 @@
 
     <groupId>com.erikcarlsten.udemy.springhibernatetutorial</groupId>
     <artifactId>spring-mvc-demo</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>spring-mvc-demo</name>
