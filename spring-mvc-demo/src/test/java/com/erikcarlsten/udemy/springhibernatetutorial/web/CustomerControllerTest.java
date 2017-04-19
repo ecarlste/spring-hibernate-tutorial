@@ -33,7 +33,7 @@ public class CustomerControllerTest {
     private CustomerService customerService;
 
     @Test
-    public void listCustomersShouldListCustomersTemplate() throws Exception {
+    public void listCustomersShouldReturnListCustomersTemplate() throws Exception {
         List<Customer> allCustomers = new ArrayList<>();
         allCustomers.add(new Customer("Erik", "Carlsten", "eshizzle@foo.bar"));
         allCustomers.add(new Customer("Adnyl", "Rebuts", "llfosho@bar.baz"));
@@ -46,6 +46,16 @@ public class CustomerControllerTest {
                 .andExpect(view().name("views/list-customers"))
                 .andExpect(MockMvcResultMatchers.view().name("views/list-customers"))
                 .andExpect(model().attribute("customers", allCustomers));
+    }
+
+    @Test
+    public void showFormForAddShouldReturnCustomerFormTemplate() throws Exception {
+        mvc.perform(get("/customer/showFormForAdd").accept(MediaType.ALL))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("views/customer-form"))
+                .andExpect(MockMvcResultMatchers.view().name("views/customer-form"))
+                .andExpect(model().attributeExists("customer"));
     }
 
 }
